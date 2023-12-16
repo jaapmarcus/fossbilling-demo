@@ -14,7 +14,7 @@ curl -X "POST" \
 "https://demo.fossbilling.org/install/install.php?a=install"
 
 #Fix untill #1977  is merged
-sed -i "s/https:\/\/localhost:8080\//https:\/\/demo.fossbilling.org/\//g" /var/lib/docker/volumes/docker_fossbilling/_data/config.php
+sed -i "s/https:\/\/localhost:8080\//https:\/\/demo.fossbilling.org\//g" /var/lib/docker/volumes/docker_fossbilling/_data/config.php
 
 #Install Demo  module
 if [ ! -d "https://github.com/FOSSBilling/Demo/" ]; then
