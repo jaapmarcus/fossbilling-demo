@@ -1,22 +1,22 @@
 version: "3.9"
 services:
-	fossbilling:
-		image: fossbilling/fossbilling:latest
-		restart: always
-		ports:
-			- 8080:80
-		volumes:
-			- fossbilling:/var/www/html
-	mysql:
-		image: mysql:8.2
-		restart: always
-		environment:
-			MYSQL_DATABASE: fossbilling
-			MYSQL_USER: fossbilling
-			MYSQL_PASSWORD: fossbilling
-			MYSQL_ROOT_PASSWORD: root
-		volumes:
-			- mysql:/var/lib/mysql
+  fossbilling:
+    image: fossbilling/fossbilling:latest
+    restart: always
+    ports:
+      - 8080:80
+    volumes:
+      - fossbilling:/var/www/html
+  mysql:
+    image: mysql:8.2
+    restart: always
+    environment:
+      MYSQL_DATABASE: fossbilling
+      MYSQL_USER: fossbilling
+      MYSQL_PASSWORD: fossbilling
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - mysql:/var/lib/mysql
 volumes:
-	fossbilling:
-	mysql:
+  fossbilling:
+  mysql:
