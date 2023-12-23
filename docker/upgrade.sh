@@ -44,5 +44,5 @@ docker exec -i docker_mysql_1 mysqldump -uroot -proot fossbilling > /root/demo.s
 
 # Re state cronjobs
 rm /var/spool/cron/crontabs/root
-echo "*/5 * * * * docker exec docker_fossbilling_1 php /var/www/html/cron.php >/dev/null 2>&1" > /var/spool/cron/crontabs/root
-echo "0 * * * * cat /root/demo.sql | docker exec -i docker_mysql_1 mysql -uroot -proot fossbilling >/dev/null 2>&1" >> /var/spool/cron/crontabs/root
+echo "*/5 * * * * /usr/bin/docker exec docker_fossbilling_1 php /var/www/html/cron.php >/dev/null 2>&1" > /var/spool/cron/crontabs/root
+echo "0 * * * * cat /root/demo.sql | /usr/bin/docker exec -i docker_mysql_1 mysql -uroot -proot fossbilling >/dev/null 2>&1" >> /var/spool/cron/crontabs/root
