@@ -11,8 +11,8 @@ docker rmi -f $(docker images -aq)
 # Bring Docker up
 docker-compose up -d
 # It takes a few seconds to be working for sure just wait 10 sec
-echo "Sleep for 5 Seconds"
-sleep 5
+echo "Sleep for 2 Seconds"
+sleep 2
 
 # Trigger installer
 curl -X "POST" \
@@ -25,6 +25,7 @@ if [ ! -d "https://github.com/FOSSBilling/Demo/" ]; then
 rm -fr ./Demo
 fi
 
+rm -rf /var/lib/docker/volumes/docker_fossbilling/_data/install/
 # Clone it again
 git clone "https://github.com/FOSSBilling/Demo.git"
 
@@ -37,6 +38,8 @@ cat ./update.sql | docker exec -i docker_mysql_1 mysql -proot fossbilling >/dev/
 # Update Login pages
 cp ./html/mod_page_login.html.twig /var/lib/docker/volumes/docker_fossbilling/_data/modules/Page/html_client/
 cp ./html/mod_staff_login.html.twig /var/lib/docker/volumes/docker_fossbilling/_data/modules/Staff/html_admin/
+
+/usr/bin/docker exec docker_fossbilling_1 php /var/www/html/cron.php
 
 rm /root/demo.sql
 # Create Dump Existing database
