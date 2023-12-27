@@ -10,9 +10,9 @@ docker rmi -f $(docker images -aq)
 
 # Bring Docker up
 docker-compose up -d
-# It takes a few seconds to be working for sure just wait 10 sec
-echo "Sleep for 2 Seconds"
-sleep 2
+# It takes a few seconds to be working for sure just wait 5 sec
+echo "Sleep for 5 Seconds"
+sleep 5
 
 # Trigger installer
 curl -X "POST" \
