@@ -10,9 +10,9 @@ docker rmi -f $(docker images -aq)
 
 # Bring Docker up
 docker-compose up -d
-# It takes a few seconds to be working for sure just wait 5 sec
-echo "Sleep for 5 Seconds"
-sleep 5
+# It takes a few seconds to be working for sure just wait 10 sec
+echo "Sleep for 10 Seconds"
+sleep 10
 
 # Trigger installer
 curl -X "POST" \
@@ -39,7 +39,10 @@ cat ./update.sql | docker exec -i docker_mysql_1 mysql -proot fossbilling >/dev/
 cp ./html/mod_page_login.html.twig /var/lib/docker/volumes/docker_fossbilling/_data/modules/Page/html_client/
 cp ./html/mod_staff_login.html.twig /var/lib/docker/volumes/docker_fossbilling/_data/modules/Staff/html_admin/
 
-/usr/bin/docker exec docker_fossbilling_1 php /var/www/html/cron.php
+# Run cronjob
+/usr/bin/docker exec docker_fossbilling_1 su www-data -s /usr/local/bin/php /var/www/html/cron.php 
+
+
 
 rm /root/demo.sql
 # Create Dump Existing database
@@ -47,5 +50,6 @@ docker exec -i docker_mysql_1 mysqldump -uroot -proot fossbilling > /root/demo.s
 
 # Re state cronjobs
 rm /var/spool/cron/crontabs/root
-echo "*/5 * * * * /usr/bin/docker exec docker_fossbilling_1 php /var/www/html/cron.php >/dev/null 2>&1" > /var/spool/cron/crontabs/root
+echo "*/5 * * * * /usr/bin/docker exec docker_fossbilling_1 su www-data -s /usr/local/bin/php /var/www/html/cron.php 
+ >/dev/null 2>&1" > /var/spool/cron/crontabs/root
 echo "0 * * * * cat /root/demo.sql | /usr/bin/docker exec -i docker_mysql_1 mysql -uroot -proot fossbilling >/dev/null 2>&1" >> /var/spool/cron/crontabs/root
