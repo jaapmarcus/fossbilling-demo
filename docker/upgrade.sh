@@ -53,4 +53,4 @@ docker exec -i docker_mysql_1 mysqldump -uroot -proot fossbilling > /root/demo.s
 echo "*/5 * * * * /usr/bin/docker exec docker_fossbilling_1 su www-data -s /usr/local/bin/php /var/www/html/cron.php >/dev/null 2>&1" > /var/spool/cron/crontabs/root
 echo "0 * * * * cat /root/demo.sql | /usr/bin/docker exec -i docker_mysql_1 mysql -uroot -proot fossbilling >/dev/null 2>&1" >> /var/spool/cron/crontabs/root
 # Check daily hourly for release
-echo "1 * * * * /root/fossbilling-demo/docker/check_update.sh" >> /var/spool/cron/crontabs/root
+echo "1 * * * * /root/fossbilling-demo/docker/check_release.sh" >> /var/spool/cron/crontabs/root
